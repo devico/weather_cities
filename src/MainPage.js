@@ -73,7 +73,7 @@ const MainPage = () => {
           }}
         >
           <Container maxWidth="sm">
-            <SearchCity />
+            {/* <SearchCity /> */}
             <Typography
               component="h1"
               variant="h2"

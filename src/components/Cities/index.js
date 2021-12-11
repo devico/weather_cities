@@ -4,19 +4,19 @@ const Cities = () => {
   const [cities, setCities] = useState([])
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    getCities()
-    //eslint-disable-next-line
-  }, [])
+  // useEffect(() => {
+  //   getCities()
+  //   //eslint-disable-next-line
+  // }, [])
 
-  const getCities = async () => {
-    setLoading(true)
-    const res = await fetch('/cities')
-    const data = res.json()
+  // const getCities = async () => {
+  //   setLoading(true)
+  //   const res = await fetch('/cities')
+  //   const data = res.json()
 
-    setCities(data)
-    setLoading(false)
-  }
+  //   setCities(data)
+  //   setLoading(false)
+  // }
 
   if (loading) {
     return <h4>Loading...</h4>
