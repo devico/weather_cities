@@ -17,7 +17,7 @@ export default (state = inititalState, action) => {
     case SET_LOADING:
       return {
         ...state,
-        loadiing: true
+        loading: true
       }
     case CITIES_ERROR:
       console.error(action.payload)
