@@ -11,9 +11,10 @@ import { addFavorite } from '../../actions/favoriteActions'
 import { getWeather } from '../../actions/weatherActions'
 import { Preloader } from '../../layout/Preloader'
 
-const Cities = ({ city: { cities, loading }, weather: { weathers, loadingWeather }, getCities, addFavorite, getWeather }) => {
+const Cities = ({ onReRender, city: { cities, loading }, weather: { weathers, loadingWeather }, getCities, addFavorite, getWeather }) => {
   const [allCities, setAllCities] = useState([])
-  const [selectedCity, setSelectedCity] = useState()
+  const [city, setCity] = useState()
+  const [, setSelectedCity] = useState()
 
   useEffect(() => {
     getCities()
@@ -53,8 +54,9 @@ const Cities = ({ city: { cities, loading }, weather: { weathers, loadingWeather
         weather: wth
       }
       addFavorite(cWeather)
-    }
-    
+      setCity(cWeather.name)
+      onReRender()
+    }   
     
   };
 
@@ -62,18 +64,17 @@ const Cities = ({ city: { cities, loading }, weather: { weathers, loadingWeather
     return <Preloader />
   }
 
-
   return (
     <Grid container mt={10}>
       <Grid item xs={12} sm={8}>
         <Box display="flex" justifyContent="flex-end" mb={4}>
           <Box mb={{ xs: 3, md: 2 }}>
             <Autocomplete
-              disablePortal
               id="combo-box-demo"
               options={allCities}
               sx={{ width: 500 }}
               onChange={(e, v) => handleChangeCity(v)}
+              key={city}
               renderInput={(params) => <TextField {...params} label="City" />}
             />
           </Box>
@@ -81,11 +82,10 @@ const Cities = ({ city: { cities, loading }, weather: { weathers, loadingWeather
       </Grid>
       <Grid item xs={12} sm={3}>
         <Box ml={3} mt={1}>
-          <Button variant="contained" onClick={handleAddToFavorite}>Add to Favorite</Button>
+          <Button variant="contained" color="primary" onClick={() => handleAddToFavorite()}>Add to Favorite</Button>
         </Box>
       </Grid>
     </Grid>
-
   );
 }
 

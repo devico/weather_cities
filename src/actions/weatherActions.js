@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_WEATHER, GET_CURRENT_WEATHER, SET_LOADING_WEATHER, WEATHER_ERROR } from "./types";
+import { GET_WEATHER, GET_CURRENT_WEATHER, SET_LOADING_WEATHER } from "./types";
 
 export const getCurrentWeather = (lat, lon) => {
   

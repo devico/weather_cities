@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_FAVORITES, ADD_FAVORITE, DELETE_FAVORITE, SET_LOADING_FAVORITE, CITIES_ERROR } from "./types";
+import { GET_FAVORITES, ADD_FAVORITE, DELETE_FAVORITE, SET_LOADING_FAVORITE } from "./types";
 
 export const getFavorites = () => {  
   return async dispatch => {

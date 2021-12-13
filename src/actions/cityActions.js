@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { GET_CITIES, SET_LOADING, CITIES_ERROR } from "./types";
+import { GET_CITIES, SET_LOADING } from "./types";
 
-export const getCities = (country, region) => {
+export const getCities = () => {
   
   return async dispatch => {
     setLoading()

@@ -18,8 +18,6 @@ const WeatherCurrent = ({ weather: { currentWeathers, loadingWeather }, getCurre
     navigator.geolocation.getCurrentPosition(function () { }, function () { }, {});
 
     navigator.geolocation.getCurrentPosition(function (position) {
-      console.log("Latitude is :", position.coords.latitude);
-      console.log("Longitude is :", position.coords.longitude);
       getCurrentWeather(position.coords.latitude, position.coords.longitude)
     }, function (e) {
       console.log("Error :", e);
@@ -54,9 +52,6 @@ const WeatherCurrent = ({ weather: { currentWeathers, loadingWeather }, getCurre
   if (loadingWeather) {
     return <Preloader />
   }
-
-  console.log('weathers', currentWeathers)
-
 
   return (
     <>

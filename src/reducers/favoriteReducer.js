@@ -23,7 +23,7 @@ export default (state = inititalState, action) => {
     case DELETE_FAVORITE:
       return {
         ...state,
-        favorites: state.favorites(favorite => favorite.id !== action.payload),
+        favorites: state.favorites.filter(favorite => favorite.id !== action.payload),
         loadingFavorite: false
       }
     case SET_LOADING_FAVORITE:
