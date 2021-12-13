@@ -11,11 +11,11 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
-import { getFavorites, deleteFavorite } from '../../actions/favoriteActions'
+import { getFavorites, addFavorite, deleteFavorite } from '../../actions/favoriteActions'
 import PropTypes from 'prop-types'
 import Cities from '../Cities'
 
-const Favorite = ({ favorite: { favorites, loadingFavorite }, getFavorites, deleteFavorite }) => {
+const Favorite = ({ favorite: { favorites, loadingFavorite }, getFavorites, addFavorite, deleteFavorite }) => {
   const [rerender, setRerender] = useState(false);
 
   useEffect(() => {
@@ -24,23 +24,41 @@ const Favorite = ({ favorite: { favorites, loadingFavorite }, getFavorites, dele
   }, [])
 
   useEffect(() => {
+    console.log('RRR')
     setRerender(!rerender)
-  }, [favorites])
+  }, [loadingFavorite])
 
   const onFavoriteDelete = id => {
     deleteFavorite(id)
   };
 
-  const handleReRender = () => {    
-    setRerender(!rerender);
-   };
+  const handleAddToFavorite = (favorite) => {
+    if (favorite !== null) {
+      let wth = favorite.weather.map(w => {
+        return w.main
+      }).join(', ')
 
-
+      let wFavorite = {
+        coord: `Longitude: ${favorite.coord.lon}, Latitude: ${favorite.coord.lat}`,
+        feels_like: favorite.main.feels_like,
+        pressure: favorite.main.pressure,
+        temp: favorite.main.temp,
+        temp_max: favorite.main.temp_max,
+        temp_min: favorite.main.temp_max,
+        name: favorite.name,
+        wind_speed: favorite.wind.speed,
+        weather: wth
+      }
+      addFavorite(wFavorite)
+    }   
+    setRerender(!rerender)
+  };
+  
   return (
     <React.Fragment>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
       <CssBaseline />
-      <Cities onReRender={handleReRender}/>
+      <Cities onAddFavorite={handleAddToFavorite}/>
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
           {favorites !== null && (
@@ -123,11 +141,12 @@ const Favorite = ({ favorite: { favorites, loadingFavorite }, getFavorites, dele
 
 Favorite.propTypes = {
   getFavorites: PropTypes.func.isRequired,
-  deleteFavorite: PropTypes.func.isRequired
+  deleteFavorite: PropTypes.func.isRequired,
+  addFavorite: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
   favorite: state.favorite
 })
 
-export default connect(mapStateToProps, { getFavorites, deleteFavorite })(Favorite)
+export default connect(mapStateToProps, { getFavorites, addFavorite, deleteFavorite })(Favorite)
